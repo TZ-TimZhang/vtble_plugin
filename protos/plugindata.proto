@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option java_package = "com.vtrump.vtble_plugin";
+option java_outer_classname = "PluginProtoModel";
+
+message BleStatusInfo {
+    int32 status = 1;
+}
+
+// 扫描的用到的协议类型
+message ScanDeviceType {
+    int32 protocol = 1;
+    int32 device_type = 2;
+    int32 sub_type = 3;
+    int32 vendor = 4;
+}
+
+// 扫描配置
+message ScanConfigRequest {
+    string mac = 1;
+    bool scan_only = 2;
+    //    bool continue_scan = 3;
+}
+
+// 扫描参数
+message ScanForDevicesRequest {
+    repeated ScanDeviceType scan_device_types = 1;
+    int32 timeout_in_seconds = 2;
+    ScanConfigRequest scan_config = 3;
+}
+
+// 连接参数
+message ConnectRequest {
+    string uuid = 1;
+}
+
+// 震动参数
+message MotorDataRequest {
+    int32 value = 1;
+}
+
+/// 设备
+message DeviceInfo {
+    string name = 1;
+    string firm_ware_version = 2;
+    string uuid = 3;
+    bool is_dual_motor = 4;
+    bool is_dual_led = 5;
+    ScanDeviceType identifier = 6;
+}
+
+/// 设备事件
+message DeviceEvent {
+    string type = 1;
+    DeviceInfo device_info = 2;
+}
